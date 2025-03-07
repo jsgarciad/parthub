@@ -21,7 +21,7 @@ PartHub es un marketplace moderno para la compra y venta de repuestos, artículo
 - React Query
 - Axios
 - Vite
-- trigger 1 2 3 4 5 6 7 9 0
+- trigger 1 2 3 4 5 6 7 8 9 0
 
 ## Requisitos previos
 
