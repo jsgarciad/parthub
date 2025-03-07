@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.ORACLE_FRONTEND_USER }}
           key: ${{ secrets.ORACLE_FRONTEND_SSH_PRIVATE_KEY }}
           script: |
-            export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v18.0.0/bin
+            export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v22.14.0/bin
             cd ${{ secrets.DEPLOY_FRONTEND_DIR }}
             pm2 stop react-app || true
             pm2 start "npx http-server . -p 3000 --spa" --name "react-app"
