@@ -34,7 +34,7 @@ jobs:
           host: ${{ secrets.ORACLE_FRONTEND_HOST }}
           username: ${{ secrets.ORACLE_FRONTEND_USER }}
           key: ${{ secrets.ORACLE_FRONTEND_SSH_PRIVATE_KEY }}
-          source: "frontend/build/*"
+          source: "frontend/dist/*"
           target: ${{ secrets.DEPLOY_FRONTEND_DIR }}
           strip_components: 2
 
@@ -47,5 +47,5 @@ jobs:
           script: |
             cd ${{ secrets.DEPLOY_DIR }}
             pm2 stop all || true  # Detiene la app si está corriendo
-            pm2 serve build 3000 --spa --name "react-app"  # Inicia la app con PM2
+            pm2 serve dist 3000 --spa --name "react-app"  # Inicia la app con PM2
             pm2 save
