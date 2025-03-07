@@ -39,7 +39,7 @@ jobs:
           strip_components: 2
 
       - name: Restart application on Oracle VM
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v1.2.1
         with:
           host: ${{ secrets.ORACLE_FRONTEND_HOST }}
           username: ${{ secrets.ORACLE_FRONTEND_USER }}
