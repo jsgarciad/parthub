@@ -114,3 +114,7 @@ frontend/
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia MIT - ver el archivo LICENSE para más detalles.
+
+## Authors
+Crackmilo
+Crackrcia
