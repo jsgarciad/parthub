@@ -1,0 +1,53 @@
+name: Deploy React App (frontend) to Oracle VM
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - "frontend/**"  # Solo se ejecuta si hay cambios en la carpeta frontend
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          working-directory: frontend
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: frontend
+
+      - name: Build React app
+        run: npm run build
+        working-directory: frontend
+
+      - name: Deploy to Oracle VM
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.ORACLE_FRONTEND_HOST }}
+          username: ${{ secrets.ORACLE_FRONTEND_USER }}
+          key: ${{ secrets.ORACLE_FRONTEND_SSH_PRIVATE_KEY }}
+          source: "frontend/build/*"
+          target: ${{ secrets.DEPLOY_FRONTEND_DIR }}
+          strip_components: 2
+
+      - name: Restart application on Oracle VM
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USER }}
+          key: ${{ secrets.ORACLE_SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.DEPLOY_DIR }}
+            pm2 stop all || true  # Detiene la app si está corriendo
+            pm2 serve build 3000 --spa --name "react-app"  # Inicia la app con PM2
+            pm2 save
