@@ -44,8 +44,4 @@ jobs:
           host: ${{ secrets.ORACLE_FRONTEND_HOST }}
           username: ${{ secrets.ORACLE_FRONTEND_USER }}
           key: ${{ secrets.ORACLE_FRONTEND_SSH_PRIVATE_KEY }}
-          script: |
-            cd ${{ secrets.DEPLOY_FRONTEND_DIR }}
-            pm2 stop react-app || true  # Detiene si ya existe un proceso anterior
-            pm2 start "npx http-server . -p 3000 --spa" --name "react-app"
-            pm2 save
+          script: cd ${{ secrets.DEPLOY_FRONTEND_DIR }} && pm2 stop react-app || true && pm2 start "npx http-server . -p 3000 --spa" --name "react-app" && pm2 save
