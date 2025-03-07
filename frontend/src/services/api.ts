@@ -23,7 +23,7 @@ api.interceptors.request.use(
 
 // Products API
 export const productsApi = {
-  getAll: async (params?: { 
+  getAll: async (_params?: { 
     category?: string; 
     brand?: string; 
     search?: string;
@@ -154,7 +154,7 @@ export const ordersApi = {
 
 // Users API
 export const usersApi = {
-  login: async (email: string, password: string): Promise<{ user: User; token: string }> => {
+  login: async (email: string, _password: string): Promise<{ user: User; token: string }> => {
     // For now, return mock data
     return {
       user: {
@@ -170,7 +170,7 @@ export const usersApi = {
     // return response.data;
   },
   
-  register: async (name: string, email: string, password: string): Promise<{ user: User; token: string }> => {
+  register: async (name: string, email: string, _password: string): Promise<{ user: User; token: string }> => {
     // For now, return mock data
     return {
       user: {
